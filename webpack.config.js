@@ -1,8 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const DashboardPlugin = require('webpack-dashboard/plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
 module.exports = {
   entry: [
     'babel-polyfill',
@@ -14,12 +14,13 @@ module.exports = {
     filename: '[name].bundle.js'
   },
   resolve: {
-    extensions: ['.js', '.vue'],
+    extensions: ['.js', '.vue', '.jsx'],
     alias: {
       vue: 'vue/dist/vue.js'
     }
   },
   plugins: [
+    new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
@@ -28,7 +29,6 @@ module.exports = {
         NODE_ENV: '"dev"'
       }
     }),
-    new DashboardPlugin(),
     new ExtractTextPlugin('app.css')
   ],
   module: {
